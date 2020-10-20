@@ -1,6 +1,0 @@
-Creating virtual environment
-C:\>python -m venv "<Project Folder>"
-
-Activating virtual environment
-Run the following script from power shell on the project folder
-venv\Scripts\Activate.ps1
