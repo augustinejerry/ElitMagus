@@ -1,27 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-import pyodbc
-import pymongo
-from django.http import HttpResponseRedirect
 from .forms import registerForm 
-
-#to load login page
-def login(request):
-    return render(request, 'login.html')
+from .utilities import *
 
 #to load register page
-def registerload(request):
+def registerLoad(request):
     return render(request, 'register.html')
-
-#to authenticate the login
-def validatelogin(request):
-    data = {
-        'valid': 1,
-        'message': 'Success',
-    }
-    request.session['userid'] = 234        #store userid in session variable
-    return JsonResponse(data)
 
 #to insert the new user details to the db
 def createUser(request):
@@ -45,6 +30,31 @@ def createUser(request):
             province = form.cleaned_data['province']  
             zip = form.cleaned_data['zip']
             print(fname)
+
+            connection = connectMongo()
+            resCnt = 0
+            valid = 0
+
+            # Database Name 
+            db = connection["elitmagus"] 
+            
+            # Collection Name 
+            coll = db["users"] 
+
+            # document = {"user_id" : 1, 
+            #             "email" : "sample@gmail.com", 
+            #             "password" : "123",
+            #             "fname" : "sample",
+            #             "lname" : "1",
+            #             "dob" : new Date("1994-12-11"),
+            #             "phone" : 5454545214,
+            #             "address" : {"address_line_1" : "25 Celeste Drive",
+            #                         "address_line_2" : "Scarborough",
+            #                         "city" : "Toronto",
+            #                         "province" : "Ontario",
+            #                         "zip" : "M1E2V6"}
+            #            }
+            
             # redirect to a new URL:
             return render(request, 'homepage.html', {'sessionvar' : fname})
 
@@ -54,7 +64,3 @@ def createUser(request):
         form = registerForm()
     print("hello")
     return render(request, 'register.html', {'form': form})
-
-#to load homepage
-def homepage(request):
-    return render(request, 'homepage.html', {'sessionvar' : request.session['userid']})

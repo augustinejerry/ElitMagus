@@ -44,7 +44,8 @@
 	        	<!-- <%request.getSession().setAttribute("userid", 0); %> -->
 		      	<div class="login-page">
 					<div class="form">
-							<input type="text" placeholder="username" name="username" id="username"/>
+                <input name="csrfToken" value="{{ csrf_token }}" type="hidden" id="token">
+							  <input type="text" placeholder="username" name="username" id="username"/>
 					     	<input type="password" placeholder="password" name="password" id="password"/>
 					     	<div class="error" id = "error"></div>
 					     	<button id="login">login</button>
