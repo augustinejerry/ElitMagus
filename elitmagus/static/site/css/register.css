@@ -43,6 +43,12 @@
  .form button:hover,.form button:active,.form button:focus {
    background: #43A047;
  }
+ .form .error {
+	color: red;
+	font-size: 12px;
+	text-align: left;
+	vertical-align: left;
+ }
  .form .message {
    margin: 15px 0 0;
    color: #b3b3b3;
