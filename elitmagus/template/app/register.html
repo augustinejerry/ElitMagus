@@ -43,7 +43,8 @@
 		      	<div class="login-page">
 					<div class="form">
                         <form name="registerform" action="register" method = "POST" onsubmit="return validate()">
-                            {% csrf_token %}
+							{% csrf_token %}
+						  <div class="error" id = "error">{{ request.session.regError }}</div>
 						  <div class="form-row">
 						    <div class="form-group col-md-6">
 						      <input type="email" id="inputEmail4" name="email" placeholder="Email" required>
@@ -86,7 +87,6 @@
 						      <input type="text" id="inputZip" name="zip" placeholder="Zip" required>
 						    </div>
 						  </div>
-						  
 						  <button type="submit">Sign in</button>
 						</form>
 					</div>
