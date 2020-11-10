@@ -13,33 +13,38 @@ def validateLogin(request):
     passwordTyped = request.POST.get('password', None)
     connection = connectMongo()
 
-    resCnt = 0
-    valid = 0
+    if connection == -1:
+        valid = -1
+        message = "Error in establishing connection with the database"
 
-    # Database Name 
-    db = connection["elitmagus"] 
-    
-    # Collection Name 
-    coll = db["users"] 
-
-    #fetch user details
-    result = coll.find({"email":usernameTyped},{ "_id": 0, "user_id": 1, "password": 1 })
-    for r in result:
-        resCnt += 1
-        print(r["password"] + passwordTyped)
-        if r["password"] == passwordTyped:
-            valid = 1
-            userId = r["user_id"]
-    
-    if valid == 1 and resCnt == 1:
-        request.session['userid'] = userId
-        message = "Success"
-    elif valid == 0 and resCnt == 1:
-        message = "Wrong password"
-    elif valid == 1 and resCnt > 1:
-        message = "Multiple users"
     else:
-        message = "Invalid username"
+        resCnt = 0
+        valid = 0
+
+        # Database Name 
+        db = connection["elitmagus"] 
+        
+        # Collection Name 
+        coll = db["users"] 
+
+        #fetch user details
+        result = coll.find({"email":usernameTyped},{ "_id": 0, "user_id": 1, "password": 1 })
+        for r in result:
+            resCnt += 1
+            print(r["password"] + passwordTyped)
+            if r["password"] == passwordTyped:
+                valid = 1
+                userId = r["user_id"]
+        
+        if valid == 1 and resCnt == 1:
+            request.session['userid'] = userId
+            message = "Success"
+        elif valid == 0 and resCnt == 1:
+            message = "Wrong password"
+        elif valid == 1 and resCnt > 1:
+            message = "Multiple users"
+        else:
+            message = "Invalid username"
     
     data = {    
         'valid': valid,
