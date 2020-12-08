@@ -9,20 +9,113 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Homepage</title>
+  <title>Movies</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static "site/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="{% static "site/css/shop-homepage.css" %}" rel="stylesheet">
+  <link href="{% static "site/css/homepage.css" %}" rel="stylesheet">
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="{% static "site/js/homepage.js" %}"></script>
 
 </head>
 
 <body>
-  {{ request.session.regError }}
-  hsdskjhdfkshdkh
-  {{ sessionvar }}
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">ElitMagus</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="login">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+
+      
+
+      <div class="col-lg-12">
+
+      </br>
+      </br>
+      </br>
+        <div class="row">
+        <input name="csrfToken" value="{{ csrf_token }}" type="hidden" id="token">
+        {% for i in page_obj %} 
+          <div class="col-lg-3 col-md-6 mb-4 h-25 movi">
+            <div class="card">
+              <div id="{{i.id}}#{{ i.title }}" class="movieTag">
+                  <img class="card-img-top" src="http://image.tmdb.org/t/p/w500/{{i.poster_path}}" onerror=this.src="{% static "site/images/noposter.jpg" %}">
+              <div class="card-body">
+                <h4 class="card-title">
+                  {{i.title}}
+                </h4>
+                <h5>{{i.tagline}}</h5>
+                
+              </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-circle pg-blue">
+              {% if page_obj.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+              <li class="page-item">
+                <a class="page-link" aria-label="Previous"  href="?page={{ page_obj.previous_page_number }}">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li> 
+              {% endif %}
+              <li class="page-item active"><a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+              {% for i in pages %} 
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endfor%}
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" aria-label="Next" href="?page={{ page_obj.next_page_number }}">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+              {% endif %}
+            </ul>
+        </nav>
+        
+   
+        </div>
+        <!-- /.row -->
+
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static "site/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "site/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
 </body>
 
 </html>
