@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Movie Details</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static "site/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static "site/css/moviedesc.css" %}" rel="stylesheet">
+		<script src="http://code.jquery.com/jquery-latest.js">   
+        </script>
+        <script type="text/javascript" src="{% static "site/js/moviedesc.js" %}"></script>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">ElitMagus</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="homepage">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-12 col-md-6 mb-4 h-25">
+	
+    </div>
+    </div>
+    </div>
+      <div class="col-lg-12">
+		  	<div class="row">
+            <input name="csrfToken" value="{{ csrf_token }}" type="hidden" id="token">
+            <input name="userId" value="{{ request.session.userid }}" type="hidden" id="userId">
+            <input name="title" value="{{ request.session.title }}" type="hidden" id="title">
+            <input name="movieId" value="{{ request.session.movieid }}" type="hidden" id="movieId">
+            <input name="path" value="{{ STATIC_PATH }}" type="hidden" id="path">
+        {% for i in sessionvar.moviedetails %} 
+          <div class="col-lg-6 col-md-6 mb-4 h-25">
+            <div class="card">
+              <div id="{{i.id}}" class="imageTag"><img class="card-img-top" src="http://image.tmdb.org/t/p/w500/{{i.poster_path}}" onerror=this.src="{% static "site/images/noposter.jpg" %}">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 mb-4 h-25">
+            <div>
+              <h1>{{i.title}}</h1>
+              <h2>{{i.tagline}}</h2>
+              <h5>{{i.overview}}</h5>
+             
+            </div>
+          </div>
+          {% endfor %}
+        </div>	
+        <h4>Top 10 Movies</h4>
+        <div id = "simple">loading..</div>
+        <h4>Suggestion based on movie overview</h4>
+        <div id = "overview">loading..</div>
+        <h4>Suggestion based on movie casts</h4>
+        <div id = "cast">loading..</div>
+        <h4>Suggestion based on user's watchlist</h4>
+        <div id = "user">loading..</div>
+        <!-- <div class="row">
+        
+          
+		  <div class="col-lg-12 col-md-6 mb-4 h-25">
+            <div>
+              <h1>Feedback</h1>
+            </div>
+          </div>
+        </div>-->
+        <!-- /.row -->
+      </div>
+      <!-- /.col-lg-9 -->
+	
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static "site/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "site/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+</body>
+
+</html>

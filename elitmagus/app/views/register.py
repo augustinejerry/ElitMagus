@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
 from .forms import registerForm 
@@ -16,6 +17,8 @@ def registerLoad(request):
 def createUser(request):
     if request.method == 'POST':
         valid = 0
+        errorMessage = ''
+        userExists = 0
         # create a form instance and populate it with data from the request:
         form = registerForm(request.POST)
         print(form.errors)
@@ -49,6 +52,16 @@ def createUser(request):
                 
                 # Collection Name 
                 coll = db["users"] 
+
+                #checking the email is already registered or not
+                result = coll.find({"email":email},{ "_id": 0, "user_id": 1, "password": 1 })
+                for r in result:
+                    userExists = 1
+                
+                if userExists == 1:
+                    form = registerForm()
+                    request.session['regError'] = 'email already exists'
+                    return render(request, 'register.html', {'form': form})
 
                 #fetch the maximum user id
                 result = coll.aggregate([{"$group":
@@ -94,7 +107,7 @@ def createUser(request):
                 del request.session['regError']
             except KeyError:
                 pass
-            return render(request, 'homepage.html', {'sessionvar' : fname})
+            return redirect('homepage')
         else:
             form = registerForm()
             request.session['regError'] = errorMessage
