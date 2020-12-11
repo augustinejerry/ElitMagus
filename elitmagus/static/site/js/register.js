@@ -172,7 +172,7 @@ function validate() {
 
 
 	function add1_validation(add1) {
-		var address1 = /^[0-9a-zA-Z_]+$/;
+		var address1 = /^[0-9a-zA-Z\s]+$/;
 		if (add1.value == "") {
 			message = "Address cannot be empty";
 			add1.focus();
@@ -187,7 +187,7 @@ function validate() {
 	}
 
 	function add2_validation(add2) {
-		var address2 = /^[a-zA-Z_]+$/;
+		var address2 = /^[a-zA-Z\s]+$/;
 		if (add2.value == "") {
 			return true;
 		} else if (add2.value.match(address2)) {
@@ -199,7 +199,7 @@ function validate() {
 		}
 	}
 	function city_validation(city) {
-		var city_format = /^[a-zA-Z_]+$/;
+		var city_format = /^[a-zA-Z\s]+$/;
 		if (city.value == "") {
 			message = "City cannot be empty";
 			city.focus();
@@ -213,7 +213,7 @@ function validate() {
 		}
 	}
 	function province_validation(province) {
-		var province_format = /^[a-zA-Z_]+$/;
+		var province_format = /^[a-zA-Z\s]+$/;
 		if (province.value == "") {
 			message = "Province cannot be empty";
 			province.focus();
