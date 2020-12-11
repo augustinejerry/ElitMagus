@@ -55,8 +55,8 @@
         <div class="row">
         <input name="csrfToken" value="{{ csrf_token }}" type="hidden" id="token">
         {% for i in page_obj %} 
-          <div class="col-lg-3 col-md-6 mb-4 h-25 movi">
-            <div class="card">
+          <div class="col-lg-3 col-md-6 mb-4 movi">
+            <div class="card h-100">
               <div id="{{i.id}}#{{ i.title }}" class="movieTag">
                   <img class="card-img-top" src="http://image.tmdb.org/t/p/w500/{{i.poster_path}}" onerror=this.src="{% static "site/images/noposter.jpg" %}">
               <div class="card-body">
