@@ -1,9 +1,35 @@
- $(document).ready(function() {  
+function genres(gen){
+    var str = gen.replace(/'/g,'"');
+    var arr = JSON.parse(str);
+    var disp = "";
+    for (var i = 0; i < arr.length; i++){
+        var obj = arr[i];
+        var disp = disp + "<span class=\"border border-primary\">" + obj['name'] + "</span>";
+    }
+    console.log(disp);
+    console.log(str);
+    alert(gen);
+    return disp;
+    // $("#genres").html(disp);
+} 
+$(document).ready(function() {  
     var csrfToken=$('#token').val();
     var userId=$('#userId').val();
     var movieId=$('#movieId').val();
     var title=$('#title').val();
     var path=$('#path').val();
+    var gen=$('#gen').val();
+    
+    //displaying genres
+    var str = gen.replace(/'/g,'"');
+    var arr = JSON.parse(str);
+    var disp = "";
+    for (var i = 0; i < arr.length; i++){
+        var obj = arr[i];
+        var disp = disp + "<button id = \"genrebt\" type=\"button\" class=\"genrebtn\" disabled=\"disabled\"><b>" + obj['name'] + "</b></button>";
+    }
+    $("#genres").html(disp);
+
     $.ajax( 
         { 
             type:"POST", 

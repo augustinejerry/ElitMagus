@@ -303,7 +303,7 @@ def get_recommendations_cast(request):
 
 #function to find user based suggestion
 def get_recommendations_user(request):
-    userId = request.session['userid']
+    userId = int(request.session['userid'])
     print(userId)
     connection = connectMongo()
 
