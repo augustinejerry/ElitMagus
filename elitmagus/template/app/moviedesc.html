@@ -71,12 +71,11 @@
             </div>
           </div>
           <div class="col-lg-6 col-md-6 mb-4 h-25">
-            <div>
               <h1>{{i.title}}</h1>
               <h2>{{i.tagline}}</h2>
               <h5>{{i.overview}}</h5>
-             
-            </div>
+              <input name="path" value="{{i.genres}}" type="hidden" id="gen">
+              <div id="genres"></div>
           </div>
           {% endfor %}
         </div>	
